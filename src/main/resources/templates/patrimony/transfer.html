@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+
+<th:block layout:fragment="title">
+    Patrimônio - Transferir
+</th:block>
+
+<th:block layout:fragment="itens">
+    <li class="active">
+        <a th:href="@{/patrimony}">Patrimônios</a>
+    </li>
+    <li>
+        <a th:href="@{/departament}">Setores</a>
+    </li>
+</th:block>
+
+<th:block layout:fragment="header">
+    <th:block layout:replace="fragments/header">
+
+    </th:block>
+</th:block>
+
+<th:block layout:fragment="content">
+    <div class="container">
+
+        <div class="card-panel" style="padding: 1rem">
+            <div>
+                <h6 class="blue-text text-darken-3 flow-text" style="margin: 0">Patrimônio - Transferir</h6>
+            </div>
+        </div>
+
+        <div class="card-panel">
+            <div class="row">
+                <form class="col s12" th:action="@{/patrimony/transfer/}" th:object="${transfer}" th:method="post">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input th:field="*{transferDate}" id="transferDate" name="transferDate" type="text" class="datepicker validate" format="yyyy-mm-dd">
+                            <label for="transferDate">Data de Transferência</label>
+                        </div>
+
+                        <div class="input-field col s12">
+                            <select id="patrimony" th:field="*{patrimony}">
+                                <option th:value="${patrimony.id}" th:text="${patrimony.description}"></option>
+                            </select>
+                            <label for="patrimony">Patrimônio</label>
+                        </div>
+
+                        <div class="input-field col s12">
+                            <select id="departamentInitial" th:field="*{departamentInitial}">
+                                <option th:value="${patrimony.department.id}" th:text="${patrimony.department.name}"></option>
+                            </select>
+                            <label for="departamentDestination">Setor Inicio</label>
+                        </div>
+
+                        <div class="input-field col s12">
+                            <select id="departamentDestination" th:field="*{departamentDestination}">
+                                <option value="">Selecione um setor</option>
+                                <option th:each="departament : ${departaments}" th:value="${departament.id}" th:text="${departament.name}"></option>
+                            </select>
+                            <label for="departamentDestination">Setor Destino</label>
+                        </div>
+                    </div>
+                    <button class="waves-effect waves-light btn-small blue darken-3">
+                        <i class="material-icons right">autorenew</i>
+                        Transferir
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="footer">
+
+</th:block>
+
+<th:block layout:fragment="scripts">
+    <script>
+        // menu mobile select datapicker
+        $(document).ready(function(){
+            $('.sidenav').sidenav();
+            $('select').formSelect();
+            $('.datepicker').datepicker({format: "yyyy-mm-dd"});
+        });
+    </script>
+</th:block>
+
+</html>

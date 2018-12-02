@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+
+<th:block layout:fragment="title">
+    Patrimônio - Histórico Movimentação
+</th:block>
+
+<th:block layout:fragment="itens">
+    <li  class="active">
+        <a th:href="@{/patrimony}">Patrimônio</a>
+    </li>
+    <li>
+        <a th:href="@{/departament}">Setor</a>
+    </li>
+</th:block>
+
+<th:block layout:fragment="header">
+    <th:block layout:replace="fragments/header">
+
+    </th:block>
+</th:block>
+
+<th:block layout:fragment="content">
+    <div class="container">
+
+        <div class="card-panel" style="padding: 1rem">
+            <div class="row" style="margin-bottom: 0">
+                <div class="col s6" style="padding: 0">
+                    <h6 class="blue-text text-darken-3 flow-text" style="margin: 0">Histórico de Movimentação</h6>
+                </div>
+                <div class="col s6 right-align">
+                    <h6 class="blue-text text-darken-3 flow-text" style="margin: 0" th:text="${patrimony.description}"></h6>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-panel white">
+            <div class="card-content">
+                <div th:if="!${#lists.isEmpty(patrimony.transfers)}">
+                    <table class="centered striped">
+                        <thead>
+                        <tr class="blue-text text-darken-3">
+                            <th>ID</th>
+                            <th>DATA TRANDFERÊNCIA</th>
+                            <th>SETOR INÍCIO</th>
+                            <th>SETOR DESTINO</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr th:each="transfer : ${patrimony.transfers}" class="blue-text text-darken-3">
+                            <td th:text="${transfer.id}"></td>
+                            <td th:text="${#dates.format(transfer.transferDate, 'dd/mm/yyyy')}"></td>
+                            <td th:text="${transfer.departamentInitial.name}"></td>
+                            <td th:text="${transfer.departamentDestination.name}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div th:if="${#lists.isEmpty(patrimony.transfers)}">
+                    <span class="blue-text text-darken-1">Nenhuma transferência registrada.</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-panel" style="padding: 1rem">
+            <span class="blue-text text-darken-1">paginação</span>
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="footer">
+
+</th:block>
+
+<th:block layout:fragment="scripts">
+    <script>
+        // menu mobile
+        $(document).ready(function(){
+            $('.sidenav').sidenav();
+        });
+    </script>
+</th:block>
+

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+
+<th:block layout:fragment="title">
+    Setor - Lista Patrimonial
+</th:block>
+
+<th:block layout:fragment="itens">
+    <li>
+        <a th:href="@{/patrimony}">Patrimônio</a>
+    </li>
+    <li class="active">
+        <a th:href="@{/departament}">Setor</a>
+    </li>
+</th:block>
+
+<th:block layout:fragment="header">
+    <th:block layout:replace="fragments/header">
+
+    </th:block>
+</th:block>
+
+<th:block layout:fragment="content">
+    <div class="container">
+
+        <div class="card-panel" style="padding: 1rem">
+            <div class="row" style="margin-bottom: 0">
+                <div class="col s6" style="padding: 0">
+                    <h6 class="blue-text text-darken-3 flow-text" style="margin: 0">Setor - Lista Patrimonial</h6>
+                </div>
+                <div class="col s6 right-align">
+                    <h6 class="blue-text text-darken-3 flow-text" style="margin: 0" th:text="${departament.name}"></h6>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-panel white">
+            <div class="card-content">
+                <div th:if="!${#lists.isEmpty(departament.patrimonies)}">
+                    <table class="centered striped">
+                        <thead>
+                        <tr class="blue-text text-darken-3">
+                            <th>ID</th>
+                            <th>DESCRIÇÃO</th>
+                            <th>DATA AQUISIÇÃO</th>
+                            <th>CONSERVAÇÃO</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr th:each="patrimony : ${departament.patrimonies}" class="blue-text text-darken-3">
+                            <td th:text="${patrimony.id}"></td>
+                            <td th:text="${patrimony.description}"></td>
+                            <td th:text="${#dates.format(patrimony.acquisitionDate, 'dd/mm/yyyy')}"></td>
+                            <td th:text="${patrimony.conservationState}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div th:if="${#lists.isEmpty(departament.patrimonies)}">
+                    <span class="blue-text text-darken-1">Nenhum Bem/Patrimônio registrado nesse Setor.</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-panel" style="padding: 1rem">
+            <span class="blue-text text-darken-1">paginação</span>
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="footer">
+
+</th:block>
+
+<th:block layout:fragment="scripts">
+    <script>
+        // menu mobile
+        $(document).ready(function(){
+            $('.sidenav').sidenav();
+        });
+    </script>
+</th:block>
+
+</html>

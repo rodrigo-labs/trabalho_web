@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+
+    <th:block layout:fragment="title">
+        Controle Patrimonial
+    </th:block>
+
+    <th:block layout:fragment="content">
+        <div class="flex-center position-ref full-height">
+            <div class="content">
+                <div class="title m-b-md">
+                    Controle Patrimonial
+                </div>
+
+                <div class="links">
+                    <a th:href="@{/patrimony}">Patrimônio</a>
+                    <a th:href="@{/departament}">Setor</a>
+                    <a th:href="@{/transfer}">Transferência</a>
+                    <a th:href="@{http://www.rodrigolas.com.br}">Rodrigo-LABS</a>
+                </div>
+            </div>
+        </div>
+    </th:block>
+
+</html>
+

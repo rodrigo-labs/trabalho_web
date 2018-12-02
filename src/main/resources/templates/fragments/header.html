@@ -1,0 +1,19 @@
+<div class="navbar-fixed" style="margin-bottom: 5rem">
+
+    <nav class="blue darken-2">
+        <div class="nav-wrapper container">
+            <a th:href="@{/}" class="brand-logo">
+                Patrimonial
+            </a>
+            <a href="#" data-target="mobile-menu" class="sidenav-trigger">
+                <i class="material-icons">menu</i>
+            </a>
+            <ul class="right hide-on-med-and-down">
+                <th:block layout:fragment="itens"></th:block>
+            </ul>
+        </div>
+    </nav>
+</div>
+<ul class="sidenav" id="mobile-menu">
+    <th:block layout:fragment="itens"></th:block>
+</ul>

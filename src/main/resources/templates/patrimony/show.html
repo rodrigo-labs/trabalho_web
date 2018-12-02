@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+
+<th:block layout:fragment="title">
+    Patrimônio - Visualizar
+</th:block>
+
+<th:block layout:fragment="itens">
+    <li class="active">
+        <a th:href="@{/patrimony}">Patrimônios</a>
+    </li>
+    <li>
+        <a th:href="@{/departament}">Setores</a>
+    </li>
+</th:block>
+
+<th:block layout:fragment="header">
+    <th:block layout:replace="fragments/header">
+
+    </th:block>
+</th:block>
+
+<th:block layout:fragment="content">
+    <div class="container">
+        <div class="card-panel" style="padding: 1rem">
+            <div class="row" style="margin-bottom: 0">
+                <div class="col s6" style="padding: 0">
+                    <h6 class="blue-text text-darken-3 flow-text" style="margin: 0">Patrimônio - Visualizar</h6>
+                </div>
+                <div class="col s6 right-align">
+                    <a th:href="@{/patrimony}" class="btn-small blue-grey darken-1">
+                        <i class="material-icons">arrow_back</i>
+                    </a>
+                    <a th:href="@{/patrimony/{id}(id=${patrimony.id})}" class="btn-small yellow darken-3">
+                        <i class="material-icons">edit</i>
+                    </a>
+                    <form th:action="@{/patrimony/{id}(id=${patrimony.id})}" th:method="delete" style="display: inline-block">
+                        <button type="submit" class="btn-small red darken-1" onclick="M.toast({html: 'Deletado com sucesso!'})">
+                            <i class="material-icons">delete</i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-panel" style="padding: 1rem">
+            <span class="blue-text text-darken-3">ID</span>
+            <p class="flow-text blue-text text-darken-3" th:text="${patrimony.id}" style="margin-bottom: 0"></p>
+        </div>
+
+        <div class="card-panel" style="padding: 1rem">
+            <span class="blue-text text-darken-3">Descrição</span>
+            <p class="flow-text blue-text text-darken-3" th:text="${patrimony.description}" style="margin-bottom: 0"></p>
+        </div>
+
+        <div class="card-panel" style="padding: 1rem">
+            <span class="blue-text text-darken-3">Data Aquisição</span>
+            <p class="flow-text blue-text text-darken-3" th:text="${#dates.format(patrimony.acquisitionDate, 'dd/mm/yyyy')}" style="margin-bottom: 0"></p>
+        </div>
+
+        <div class="card-panel" style="padding: 1rem">
+            <span class="blue-text text-darken-3">Setor</span>
+            <p class="flow-text blue-text text-darken-3" th:text="${patrimony.department.name}" style="margin-bottom: 0"></p>
+        </div>
+
+        <div class="card-panel" style="padding: 1rem">
+            <span class="blue-text text-darken-3">Conservação</span>
+            <p class="flow-text blue-text text-darken-3" th:text="${patrimony.conservationState}" style="margin-bottom: 0"></p>
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="footer">
+
+</th:block>
+
+</html>

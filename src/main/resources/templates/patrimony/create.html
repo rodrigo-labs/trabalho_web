@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+
+<th:block layout:fragment="title">
+    Patrimônio - Cadastrar
+</th:block>
+
+<th:block layout:fragment="itens">
+    <li class="active">
+        <a th:href="@{/patrimony}">Patrimônios</a>
+    </li>
+    <li>
+        <a th:href="@{/departament}">Setores</a>
+    </li>
+</th:block>
+
+<th:block layout:fragment="header">
+    <th:block layout:replace="fragments/header">
+
+    </th:block>
+</th:block>
+
+<th:block layout:fragment="content">
+    <div class="container">
+
+        <div class="card-panel" style="padding: 1rem">
+            <div>
+                <h6 class="blue-text text-darken-3 flow-text" style="margin: 0">Patrimônio - Cadastrar</h6>
+            </div>
+        </div>
+
+        <div class="card-panel white">
+            <div class="row">
+                <form class="col s12" th:action="@{/patrimony/}" th:object="${patrimony}" th:method="post">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input th:field="*{description}" id="description" name="description" type="text" class="validate">
+                            <label for="description">Descrição do Patrimônio</label>
+                        </div>
+
+                        <div class="input-field col s12">
+                            <input th:field="*{acquisitionDate}" id="acquisitionDate" name="acquisitionDate" type="text" class="datepicker validate" format="yyyy-mm-dd">
+                            <label for="acquisitionDate">Data de Aquisição</label>
+                        </div>
+
+                        <div class="input-field col s12">
+                            <select id="department" th:field="*{department}">
+                                <option value="">Selecione um setor</option>
+                                <option th:each="departament : ${departaments}" th:value="${departament.id}" th:text="${departament.name}"></option>
+                            </select>
+                            <label for="department">Setor</label>
+                        </div>
+
+                        <div class="input-field col s12">
+                            <select id="conservationState" name="conservationState" th:field="*{conservationState}">
+                                <option value="">Selecione um estado</option>
+                                <option th:value="BOM" th:text="Bom"></option>
+                                <option th:value="REGULAR" th:text="Regular"></option>
+                                <option th:value="RUIM" th:text="Ruim"></option>
+                            </select>
+                            <label for="conservationState">Estado de Conservação</label>
+                        </div>
+                    </div>
+                    <button class="waves-effect waves-light btn-small blue darken-3">
+                        <i class="material-icons right">save</i>
+                        Salvar
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="footer">
+
+</th:block>
+
+<th:block layout:fragment="scripts">
+    <script>
+        // menu mobile select datapicker
+        $(document).ready(function(){
+            $('.sidenav').sidenav();
+            $('select').formSelect();
+            $('.datepicker').datepicker({format: "yyyy-mm-dd"});
+        });
+    </script>
+</th:block>
+
+</html>

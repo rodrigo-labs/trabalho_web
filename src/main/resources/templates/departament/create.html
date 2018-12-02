@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+
+<th:block layout:fragment="title">
+    Setor - Criar
+</th:block>
+
+<th:block layout:fragment="itens">
+    <li>
+        <a th:href="@{/patrimony}">Patrimônios</a>
+    </li>
+    <li class="active">
+        <a th:href="@{/departament}">Setores</a>
+    </li>
+</th:block>
+
+<th:block layout:fragment="header">
+    <th:block layout:replace="fragments/header">
+
+    </th:block>
+</th:block>
+
+<th:block layout:fragment="content">
+    <div class="container">
+
+        <div class="card-panel" style="padding: 1rem">
+            <div>
+                <h6 class="blue-text text-darken-3 flow-text" style="margin: 0">Setor - Criar</h6>
+            </div>
+        </div>
+
+        <div class="card-panel white">
+            <div class="row">
+                <form class="col s12" th:action="@{/departament/}" th:object="${departament}" th:method="post">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="name" name="name" th:field="*{name}" type="text" class="validate">
+                            <label for="name">Nome do Setor</label>
+                        </div>
+                    </div>
+                    <button class="waves-effect waves-light btn-small blue darken-3">
+                        <i class="material-icons right">save</i>
+                        Salvar
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="footer">
+
+</th:block>
+
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+
+<th:block layout:fragment="title">
+    Patrimônio
+</th:block>
+
+<th:block layout:fragment="itens">
+    <li  class="active">
+        <a th:href="@{/patrimony}">Patrimônio</a>
+    </li>
+    <li>
+        <a th:href="@{/departament}">Setor</a>
+    </li>
+</th:block>
+
+<th:block layout:fragment="header">
+    <th:block layout:replace="fragments/header">
+
+    </th:block>
+</th:block>
+
+<th:block layout:fragment="content">
+    <div class="container">
+
+        <div class="card-panel" style="padding: 1rem">
+            <div class="row" style="margin-bottom: 0">
+                <div class="col s6" style="padding: 0">
+                    <h6 class="blue-text text-darken-3 flow-text" style="margin: 0">Patrimônio - Lista</h6>
+                </div>
+                <div class="col s6 right-align">
+                    <a th:href="@{/patrimony/create}" class="waves-effect waves-light btn-small blue darken-3">
+                        <i class="material-icons right">add</i>
+                        Adicionar
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-panel white">
+            <div class="card-content">
+                <div th:if="!${#lists.isEmpty(patrimonies)}">
+                    <table class="centered striped">
+                        <thead>
+                        <tr class="blue-text text-darken-3">
+                            <th>ID</th>
+                            <th>DESCRIÇÃO</th>
+                            <th>DATA AQUISIÇÃO</th>
+                            <th>SETOR</th>
+                            <th>CONSERVAÇÃO</th>
+                            <th>AÇÕES</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr th:each="patrimony : ${patrimonies}" class="blue-text text-darken-3">
+                            <td th:text="${patrimony.id}"></td>
+                            <td th:text="${patrimony.description}"></td>
+                            <td th:text="${#dates.format(patrimony.acquisitionDate, 'dd/mm/yyyy')}"></td>
+                            <td th:text="${patrimony.department.name}"></td>
+                            <td th:text="${patrimony.conservationState}"></td>
+                            <td>
+                                <a th:href="@{/patrimony/show/{id}(id=${patrimony.id})}" class="btn-small green darken-2">
+                                    <i class="material-icons">visibility</i>
+                                </a>
+                                <a th:href="@{/patrimony/{id}(id=${patrimony.id})}" class="btn-small yellow darken-3">
+                                    <i class="material-icons">edit</i>
+                                </a>
+                                <a th:href="@{/patrimony/transfer/{id}(id=${patrimony.id})}" class="btn-small brown darken-1">
+                                    <i class="material-icons">autorenew</i>
+                                </a>
+                                <a th:href="@{/patrimony/historic/{id}(id=${patrimony.id})}" class="btn-small deep-purple darken-1">
+                                    <i class="material-icons">history</i>
+                                </a>
+                                <form th:action="@{/patrimony/{id}(id=${patrimony.id})}" th:method="delete" style="display: inline-block">
+                                    <button type="submit" class="btn-small red darken-1" onclick="M.toast({html: 'Deletado com sucesso!'})">
+                                        <i class="material-icons">delete</i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div th:if="${#lists.isEmpty(patrimonies)}">
+                    <span class="blue-text text-darken-1">Nenhum bem/patrimônio registrado.</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-panel" style="padding: 1rem">
+            <span class="blue-text text-darken-1">paginação</span>
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="footer">
+
+</th:block>
+
+<th:block layout:fragment="scripts">
+    <script>
+        // menu mobile
+        $(document).ready(function(){
+            $('.sidenav').sidenav();
+        });
+    </script>
+</th:block>
+
+</html>
